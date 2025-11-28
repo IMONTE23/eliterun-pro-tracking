@@ -404,6 +404,11 @@ function renderHistoryTable() {
             <td>${run.notes || '-'}</td>
             <td>
                 <div class="table-actions">
+                    <button class="btn-icon" onclick="editRun(${runHistory.indexOf(run)})">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/> <!-- simple pencil placeholder -->
+                        </svg>
+                    </button>
                     <button class="btn-icon" onclick="deleteRun(${runHistory.indexOf(run)})">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3 6 5 6 21 6"/>
