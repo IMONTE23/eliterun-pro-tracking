@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Runner - Advanced Running Analytics</title>
+    <meta name="description"
+        content="Professional running analytics dashboard with race predictions, performance tracking, and comprehensive training insights">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L4 9V23L16 30L28 23V9L16 2Z" stroke="url(#logo-gradient)" stroke-width="2"
+                        fill="none" />
+                    <path d="M16 11L11 14V18L16 21L21 18V14L16 11Z" fill="url(#logo-gradient)" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6366f1" />
+                            <stop offset="1" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>Pro Runner</span>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-link active" data-tab="dashboard">Dashboard</a>
+                <a href="#predictions" class="nav-link" data-tab="predictions">Race Predictions</a>
+                <a href="#history" class="nav-link" data-tab="history">History & Analytics</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Tab -->
+        <section id="dashboard-section" class="tab-section active">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p class="subtitle">Your running performance at a glance</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Runs</div>
+                            <div class="stat-value" id="total-runs">0</div>
+                            <div class="stat-change positive">+12% this month</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Weekly Volume</div>
+                            <div class="stat-value" id="weekly-volume">0 km</div>
+                            <div class="stat-change positive">+8% vs last week</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Avg Pace</div>
+                            <div class="stat-value" id="avg-pace">0:00</div>
+                            <div class="stat-change positive">-5s improvement</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Avg Heart Rate</div>
+                            <div class="stat-value" id="avg-hr">0 bpm</div>
+                            <div class="stat-change neutral">Steady</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h2>Weekly Distance</h2>
+                            <div class="chart-legend">Last 8 weeks</div>
+                        </div>
+                        <canvas id="weekly-chart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h2>Pace Progression</h2>
+                            <div class="chart-legend">Recent runs</div>
+                        </div>
+                        <canvas id="pace-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Runs -->
+                <div class="recent-runs-card">
+                    <div class="card-header">
+                        <h2>Recent Runs</h2>
+                        <a href="#history" class="view-all-link" data-tab="history">View All →</a>
+                    </div>
+                    <div id="recent-runs-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Race Predictions Tab -->
+        <section id="predictions-section" class="tab-section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Race Time Predictions</h1>
+                    <p class="subtitle">Predict your race performance using proven formulas</p>
+                </div>
+
+                <!-- Calculator Input -->
+                <div class="calculator-card">
+                    <h2>Enter a Recent Race Result</h2>
+                    <div class="calculator-input-grid">
+                        <div class="input-group">
+                            <label for="race-distance">Distance (km)</label>
+                            <input type="number" id="race-distance" placeholder="10" step="0.1" min="1">
+                        </div>
+                        <div class="input-group">
+                            <label for="race-hours">Hours</label>
+                            <input type="number" id="race-hours" placeholder="0" min="0" max="23">
+                        </div>
+                        <div class="input-group">
+                            <label for="race-minutes">Minutes</label>
+                            <input type="number" id="race-minutes" placeholder="45" min="0" max="59">
+                        </div>
+                        <div class="input-group">
+                            <label for="race-seconds">Seconds</label>
+                            <input type="number" id="race-seconds" placeholder="30" min="0" max="59">
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="calculate-btn">Calculate Predictions</button>
+                </div>
+
+                <!-- Results Grid -->
+                <div class="predictions-grid" id="predictions-results">
+                    <!-- Riegel's Formula -->
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <h3>Riegel's Formula</h3>
+                            <div class="prediction-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                </svg>
+                                <span class="tooltip">Uses a fatigue factor of 1.06 for road races</span>
+                            </div>
+                        </div>
+                        <div class="prediction-results">
+                            <div class="prediction-item">
+                                <span class="prediction-label">10K</span>
+                                <span class="prediction-time" id="riegel-10k">--:--:--</span>
+                            </div>
+                            <div class="prediction-item">
+                                <span class="prediction-label">Half Marathon (21.1K)</span>
+                                <span class="prediction-time" id="riegel-21k">--:--:--</span>
+                            </div>
+                            <div class="prediction-item">
+                                <span class="prediction-label">Marathon (42.2K)</span>
+                                <span class="prediction-time" id="riegel-42k">--:--:--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VDOT Calculator -->
+                    <div class="prediction-card">
+                        <div class="prediction-header">
+                            <h3>VDOT Calculator</h3>
+                            <div class="prediction-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 16v-4M12 8h.01" />
+                                </svg>
+                                <span class="tooltip">Based on Jack Daniels' Running Formula</span>
+                            </div>
+                        </div>
+                        <div class="vdot-score">
+                            <div class="vdot-label">Your VDOT Score</div>
+                            <div class="vdot-value" id="vdot-score">--</div>
+                        </div>
+                        <div class="prediction-results">
+                            <div class="prediction-item">
+                                <span class="prediction-label">10K</span>
+                                <span class="prediction-time" id="vdot-10k">--:--:--</span>
+                            </div>
+                            <div class="prediction-item">
+                                <span class="prediction-label">Half Marathon (21.1K)</span>
+                                <span class="prediction-time" id="vdot-21k">--:--:--</span>
+                            </div>
+                            <div class="prediction-item">
+                                <span class="prediction-label">Marathon (42.2K)</span>
+                                <span class="prediction-time" id="vdot-42k">--:--:--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pace Reference -->
+                <div class="pace-reference-card">
+                    <h3>Training Pace Zones</h3>
+                    <div id="pace-zones" class="pace-zones"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History & Analytics Tab -->
+        <section id="history-section" class="tab-section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Run History & Analytics</h1>
+                    <p class="subtitle">Track and analyze all your running data</p>
+                </div>
+
+                <!-- Add Run Form -->
+                <div class="add-run-card">
+                    <div class="add-run-header">
+                        <button class="btn-secondary" id="toggle-form-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            Add New Run
+                        </button>
+                        <button class="btn-danger" id="clear-all-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                <line x1="10" y1="11" x2="10" y2="17" />
+                                <line x1="14" y1="11" x2="14" y2="17" />
+                            </svg>
+                            Clear All Data
+                        </button>
+                    </div>
+
+                    <div class="run-form hidden" id="run-form">
+                        <h3>Add New Run</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="run-date">Date</label>
+                                <input type="date" id="run-date" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="run-distance">Distance (km)</label>
+                                <input type="number" id="run-distance" placeholder="10.0" step="0.1" min="0" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="run-time-h">Time (H:M:S)</label>
+                                <div class="time-inputs">
+                                    <input type="number" id="run-time-h" placeholder="0" min="0" max="23">
+                                    <span>:</span>
+                                    <input type="number" id="run-time-m" placeholder="45" min="0" max="59">
+                                    <span>:</span>
+                                    <input type="number" id="run-time-s" placeholder="30" min="0" max="59">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="run-hr">Avg Heart Rate (bpm)</label>
+                                <input type="number" id="run-hr" placeholder="150" min="0" max="220">
+                            </div>
+                            <div class="input-group">
+                                <label for="run-cadence">Cadence (spm)</label>
+                                <input type="number" id="run-cadence" placeholder="180" min="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="run-elevation">Elevation Gain (m)</label>
+                                <input type="number" id="run-elevation" placeholder="50" min="0">
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="run-notes">Notes</label>
+                                <input type="text" id="run-notes" placeholder="Easy recovery run">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-primary" id="save-run-btn">Save Run</button>
+                            <button class="btn-ghost" id="cancel-form-btn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="filters-card">
+                    <div class="filters-group">
+                        <div class="input-group">
+                            <input type="text" id="search-input" placeholder="Search runs...">
+                        </div>
+                        <div class="filter-buttons">
+                            <select id="sort-select" class="filter-select">
+                                <option value="date-desc">Newest First</option>
+                                <option value="date-asc">Oldest First</option>
+                                <option value="distance-desc">Longest Distance</option>
+                                <option value="distance-asc">Shortest Distance</option>
+                                <option value="pace-asc">Fastest Pace</option>
+                                <option value="pace-desc">Slowest Pace</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Table -->
+                <div class="history-table-card">
+                    <div class="table-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Distance (km)</th>
+                                    <th>Time</th>
+                                    <th>Pace (min/km)</th>
+                                    <th>Avg HR (bpm)</th>
+                                    <th>Cadence (spm)</th>
+                                    <th>Elevation (m)</th>
+                                    <th>Notes</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- Table rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
