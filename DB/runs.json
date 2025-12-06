@@ -1,11 +1,20 @@
 [
     {
+        "date": "2025-11-30",
+        "distance": 42.195,
+        "time": 13140,
+        "hr": 156,
+        "cadence": 175,
+        "elevation": 19,
+        "notes": "First Full marathon"
+    },
+    {
         "date": "2025-11-25",
         "distance": 10.52,
         "time": 3417,
         "hr": 142,
         "cadence": 175,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Edited via Backend"
     },
     {
@@ -14,7 +23,7 @@
         "time": 6158,
         "hr": 159,
         "cadence": 176,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Half Marathon - Strong finish!"
     },
     {
@@ -23,7 +32,7 @@
         "time": 2240,
         "hr": 164,
         "cadence": 174,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Tempo run"
     },
     {
@@ -32,7 +41,7 @@
         "time": 4071,
         "hr": 151,
         "cadence": 173,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Long steady run"
     },
     {
@@ -41,7 +50,7 @@
         "time": 8699,
         "hr": 153,
         "cadence": 170,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Ultra distance training - Amazing effort!"
     },
     {
@@ -50,7 +59,7 @@
         "time": 3979,
         "hr": 156,
         "cadence": 172,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Steady pace run"
     },
     {
@@ -59,7 +68,7 @@
         "time": 2926,
         "hr": 151,
         "cadence": 171,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Tempo run"
     },
     {
@@ -68,7 +77,7 @@
         "time": 2604,
         "hr": 135,
         "cadence": 168,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Easy recovery"
     },
     {
@@ -77,7 +86,7 @@
         "time": 6684,
         "hr": 159,
         "cadence": 169,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Half Marathon training"
     },
     {
@@ -86,7 +95,7 @@
         "time": 3257,
         "hr": 161,
         "cadence": 161,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Steady run"
     },
     {
@@ -95,7 +104,7 @@
         "time": 3608,
         "hr": 157,
         "cadence": 172,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Tempo run"
     },
     {
@@ -104,7 +113,7 @@
         "time": 5130,
         "hr": 159,
         "cadence": 172,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Long run preparation"
     },
     {
@@ -113,7 +122,7 @@
         "time": 5130,
         "hr": 159,
         "cadence": 172,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Long run preparation"
     },
     {
@@ -122,7 +131,7 @@
         "time": 6030,
         "hr": 175,
         "cadence": 172,
-        "elevation": null,
+        "elevation": 8,
         "notes": "Long run preparation"
     }
 ]
