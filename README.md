@@ -30,7 +30,7 @@ A professional running analytics dashboard that helps runners track their perfor
 1. Clone or download this repository
 2. Navigate to the project directory:
    ```bash
-   cd pro-runner
+   cd (PATH) eliterun-pro-tracking
    ```
 3. Install dependencies:
    ```bash
