@@ -380,6 +380,76 @@ function resetForm() {
     document.getElementById('run-notes').value = '';
 }
 
+// Dashboard form controls
+document.getElementById('dashboard-toggle-form-btn').addEventListener('click', () => {
+    resetDashboardForm();
+    document.getElementById('dashboard-run-form').classList.toggle('hidden');
+});
+
+document.getElementById('dashboard-cancel-form-btn').addEventListener('click', () => {
+    document.getElementById('dashboard-run-form').classList.add('hidden');
+    resetDashboardForm();
+});
+
+document.getElementById('dashboard-save-run-btn').addEventListener('click', saveDashboardRun);
+
+function resetDashboardForm() {
+    document.getElementById('dashboard-run-date').valueAsDate = new Date();
+    document.getElementById('dashboard-run-distance').value = '';
+    document.getElementById('dashboard-run-time-h').value = '';
+    document.getElementById('dashboard-run-time-m').value = '';
+    document.getElementById('dashboard-run-time-s').value = '';
+    document.getElementById('dashboard-run-hr').value = '';
+    document.getElementById('dashboard-run-cadence').value = '';
+    document.getElementById('dashboard-run-elevation').value = '';
+    document.getElementById('dashboard-run-notes').value = '';
+}
+
+async function saveDashboardRun() {
+    const date = document.getElementById('dashboard-run-date').value;
+    const distance = parseFloat(document.getElementById('dashboard-run-distance').value);
+    const hours = parseInt(document.getElementById('dashboard-run-time-h').value) || 0;
+    const minutes = parseInt(document.getElementById('dashboard-run-time-m').value) || 0;
+    const seconds = parseInt(document.getElementById('dashboard-run-time-s').value) || 0;
+    const hr = parseInt(document.getElementById('dashboard-run-hr').value) || null;
+    const cadence = parseInt(document.getElementById('dashboard-run-cadence').value) || null;
+    const elevation = parseInt(document.getElementById('dashboard-run-elevation').value) || null;
+    const notes = document.getElementById('dashboard-run-notes').value;
+
+    if (!date || !distance || distance <= 0) {
+        alert('Please fill in date and distance');
+        return;
+    }
+
+    const time = hours * 3600 + minutes * 60 + seconds;
+    if (time <= 0) {
+        alert('Please enter a valid time');
+        return;
+    }
+
+    const runData = { date, distance, time, hr, cadence, elevation, notes };
+
+    try {
+        const response = await fetch('/api/runs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(runData)
+        });
+
+        if (response.ok) {
+            await fetchRuns(); // Refresh data
+            document.getElementById('dashboard-run-form').classList.add('hidden');
+            resetDashboardForm();
+        } else {
+            alert('Failed to save run');
+        }
+    } catch (error) {
+        console.error('Error saving run:', error);
+        alert('Error saving run');
+    }
+}
+
+
 document.getElementById('clear-all-btn').addEventListener('click', async () => {
     const confirmMessage = `⚠️ WARNING: This will permanently delete ALL ${runHistory.length} runs from your history!\n\nThis action cannot be undone. Are you absolutely sure?`;
 
@@ -564,4 +634,5 @@ document.getElementById('sort-select').addEventListener('change', renderHistoryT
 document.addEventListener('DOMContentLoaded', () => {
     fetchRuns();
     document.getElementById('run-date').valueAsDate = new Date();
+    document.getElementById('dashboard-run-date').valueAsDate = new Date();
 });

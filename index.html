@@ -156,6 +156,64 @@
                     </div>
                 </div>
 
+                <!-- Add New Run Form -->
+                <div class="add-run-card">
+                    <div class="add-run-header">
+                        <button class="btn-secondary" id="dashboard-toggle-form-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
+                            Add New Run
+                        </button>
+                    </div>
+
+                    <div class="run-form hidden" id="dashboard-run-form">
+                        <h3>Add New Run</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="dashboard-run-date">Date (DD-MM-YYYY)</label>
+                                <input type="date" id="dashboard-run-date" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="dashboard-run-distance">Distance (km)</label>
+                                <input type="number" id="dashboard-run-distance" placeholder="10.0" step="0.1" min="0" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="dashboard-run-time-h">Time (H:M:S)</label>
+                                <div class="time-inputs">
+                                    <input type="number" id="dashboard-run-time-h" placeholder="0" min="0" max="23">
+                                    <span>:</span>
+                                    <input type="number" id="dashboard-run-time-m" placeholder="45" min="0" max="59">
+                                    <span>:</span>
+                                    <input type="number" id="dashboard-run-time-s" placeholder="30" min="0" max="59">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="dashboard-run-hr">Avg Heart Rate (bpm)</label>
+                                <input type="number" id="dashboard-run-hr" placeholder="150" min="0" max="220">
+                            </div>
+                            <div class="input-group">
+                                <label for="dashboard-run-cadence">Cadence (spm)</label>
+                                <input type="number" id="dashboard-run-cadence" placeholder="180" min="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="dashboard-run-elevation">Elevation Gain (m)</label>
+                                <input type="number" id="dashboard-run-elevation" placeholder="50" min="0">
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="dashboard-run-notes">Notes</label>
+                                <input type="text" id="dashboard-run-notes" placeholder="Easy recovery run">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-primary" id="dashboard-save-run-btn">Save Run</button>
+                            <button class="btn-ghost" id="dashboard-cancel-form-btn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Recent Runs -->
                 <div class="recent-runs-card">
                     <div class="card-header">
