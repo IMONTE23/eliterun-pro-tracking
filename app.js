@@ -138,7 +138,7 @@ function renderRecentRuns() {
 
     container.innerHTML = recentRuns.map(run => `
         <div class="run-item">
-            <div class="run-date">${new Date(run.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+            <div class="run-date">${new Date(run.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
             <div class="run-details">
                 <h4>${run.distance} km</h4>
                 <div class="run-stats">
