@@ -1,4 +1,4 @@
-# Pro Runner - Advanced Running Analytics
+# eliterun-pro-tracking - Advanced Running Analytics
 
 A professional running analytics dashboard that helps runners track their performance, predict race times, and optimize their training.
 
@@ -7,6 +7,7 @@ A professional running analytics dashboard that helps runners track their perfor
 ### 📊 Dashboard
 - **Performance Metrics**: Track total runs, weekly volume, average pace, and heart rate
 - **Visual Analytics**: Interactive charts showing weekly distance and pace progression
+- **Predicted Race Times**: Predict race times based on a recent race result
 - **Recent Activity**: Quick view of your most recent runs
 
 ### 🎯 Race Time Predictions
@@ -30,7 +31,8 @@ A professional running analytics dashboard that helps runners track their perfor
 1. Clone or download this repository
 2. Navigate to the project directory:
    ```bash
-   cd (PATH) eliterun-pro-tracking
+   cd {PATH TO eliterun-pro-tracking}
+eliterun-pro-tracking
    ```
 3. Install dependencies:
    ```bash
@@ -75,7 +77,7 @@ A professional running analytics dashboard that helps runners track their perfor
 ## Project Structure
 
 ```
-pro-runner/
+eliterun-pro-tracking/
 ├── DB/
 │   └── runs.json   # Database file
 ├── index.html      # Main HTML file
