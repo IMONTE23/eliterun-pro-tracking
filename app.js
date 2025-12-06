@@ -85,6 +85,33 @@ function initDashboard() {
     renderRecentRuns();
     createWeeklyChart();
     createPaceChart();
+    updateDashboardPredictions();
+}
+
+function updateDashboardPredictions() {
+    if (!runHistory || runHistory.length === 0) return;
+
+    // Calculate VDOT for each run and find the max
+    let maxVdot = 0;
+    let maxVdotRun = null;
+
+    runHistory.forEach(run => {
+        if (run.distance > 0 && run.time > 0) {
+            const vdot = calculateVDOT(run.distance, run.time);
+            if (vdot > maxVdot) {
+                maxVdot = vdot;
+                maxVdotRun = run;
+            }
+        }
+    });
+
+    if (maxVdot > 0) {
+        const date = new Date(maxVdotRun.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        document.getElementById('best-vdot-display').textContent = `(Best VDOT: ${Math.round(maxVdot)} from ${maxVdotRun.distance}km on ${date})`;
+        document.getElementById('dashboard-10k').textContent = formatTime(Math.round(predictTimeFromVDOT(maxVdot, 10)));
+        document.getElementById('dashboard-21k').textContent = formatTime(Math.round(predictTimeFromVDOT(maxVdot, 21.1)));
+        document.getElementById('dashboard-42k').textContent = formatTime(Math.round(predictTimeFromVDOT(maxVdot, 42.2)));
+    }
 }
 
 function updateDashboardStats() {
@@ -294,7 +321,7 @@ function predictTimeFromVDOT(vdot, distance) {
     } else {
         estimatedTime = distance * 1000 / (26.01 + 4.527 * vdot - 0.00591 * vdot * vdot);
     }
-    return estimatedTime / 60; // Return in seconds
+    return estimatedTime * 60; // Return in seconds
 }
 
 function renderPaceZones(vdot) {
@@ -357,8 +384,7 @@ document.getElementById('clear-all-btn').addEventListener('click', async () => {
     const confirmMessage = `⚠️ WARNING: This will permanently delete ALL ${runHistory.length} runs from your history!\n\nThis action cannot be undone. Are you absolutely sure?`;
 
     if (confirm(confirmMessage)) {
-        // Since we don't have a bulk delete API, we'll just warn the user for now
-        // or implement a loop to delete all (not efficient but works for MVP)
+
         alert('Bulk delete not implemented in this version to prevent accidental data loss.');
     }
 });

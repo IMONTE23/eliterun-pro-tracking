@@ -130,6 +130,32 @@
                     </div>
                 </div>
 
+                <!-- Predicted Race Times (Based on History) -->
+                <div class="prediction-card" style="margin-bottom: 2rem;">
+                    <div class="prediction-header">
+                        <h2>Predicted Race Times</h2>
+                        <div class="prediction-info">
+                            <span class="tooltip">Based on your best calculated VDOT from run history</span>
+                            <small id="best-vdot-display" style="color: var(--accent-primary); font-weight: 600;">(Best
+                                VDOT: --)</small>
+                        </div>
+                    </div>
+                    <div class="prediction-results" style="flex-direction: row; flex-wrap: wrap;">
+                        <div class="prediction-item" style="flex: 1; min-width: 200px;">
+                            <span class="prediction-label">Mini 10K</span>
+                            <span class="prediction-time" id="dashboard-10k">--:--:--</span>
+                        </div>
+                        <div class="prediction-item" style="flex: 1; min-width: 200px;">
+                            <span class="prediction-label">Half Marathon</span>
+                            <span class="prediction-time" id="dashboard-21k">--:--:--</span>
+                        </div>
+                        <div class="prediction-item" style="flex: 1; min-width: 200px;">
+                            <span class="prediction-label">Marathon</span>
+                            <span class="prediction-time" id="dashboard-42k">--:--:--</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Recent Runs -->
                 <div class="recent-runs-card">
                     <div class="card-header">
@@ -190,7 +216,7 @@
                         </div>
                         <div class="prediction-results">
                             <div class="prediction-item">
-                                <span class="prediction-label">10K</span>
+                                <span class="prediction-label">Mini 10K</span>
                                 <span class="prediction-time" id="riegel-10k">--:--:--</span>
                             </div>
                             <div class="prediction-item">
