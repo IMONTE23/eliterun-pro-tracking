@@ -62,6 +62,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
         document.getElementById(`${tab}-section`).classList.add('active');
 
         if (tab === 'dashboard') initDashboard();
+        if (tab === 'racing') initRacingDashboard();
         if (tab === 'history') renderHistoryTable();
     });
 });

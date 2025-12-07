@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 const DB_PATH = path.join(__dirname, 'DB', 'runs.json');
+const RACES_DB_PATH = path.join(__dirname, 'DB', 'races.json');
 
 // Middleware
 app.use(cors());
@@ -25,6 +26,20 @@ const readDB = () => {
 // Helper to write DB
 const writeDB = (data) => {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 4));
+};
+
+// Helper to read Races DB
+const readRacesDB = () => {
+    if (!fs.existsSync(RACES_DB_PATH)) {
+        return [];
+    }
+    const data = fs.readFileSync(RACES_DB_PATH, 'utf8');
+    return JSON.parse(data || '[]');
+};
+
+// Helper to write Races DB
+const writeRacesDB = (data) => {
+    fs.writeFileSync(RACES_DB_PATH, JSON.stringify(data, null, 4));
 };
 
 // API Routes
@@ -86,6 +101,76 @@ app.delete('/api/runs/:index', (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ error: 'Failed to delete run' });
+    }
+});
+
+// ============================================
+// RACES API ROUTES
+// ============================================
+
+// GET all races
+app.get('/api/races', (req, res) => {
+    try {
+        const races = readRacesDB();
+        res.json(races);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to read races database' });
+    }
+});
+
+// POST new race
+app.post('/api/races', (req, res) => {
+    try {
+        const newRace = req.body;
+        const races = readRacesDB();
+        races.unshift(newRace); // Add to beginning
+        writeRacesDB(races);
+        res.status(201).json(newRace);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to save race' });
+    }
+});
+
+// PUT update race
+app.put('/api/races/:index', (req, res) => {
+    try {
+        const index = parseInt(req.params.index);
+        const updatedRace = req.body;
+        const races = readRacesDB();
+
+        if (index >= 0 && index < races.length) {
+            races[index] = updatedRace;
+            writeRacesDB(races);
+            res.json(updatedRace);
+        } else {
+            res.status(404).json({
+                error: 'Race not found',
+                debug: { receivedIndex: index, dbLength: races.length }
+            });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update race' });
+    }
+});
+
+// DELETE race
+app.delete('/api/races/:index', (req, res) => {
+    try {
+        const index = parseInt(req.params.index);
+        const races = readRacesDB();
+
+        if (index >= 0 && index < races.length) {
+            const deleted = races.splice(index, 1);
+            writeRacesDB(races);
+            res.json(deleted[0]);
+        } else {
+            res.status(404).json({
+                error: 'Race not found',
+                debug: { receivedIndex: index, dbLength: races.length }
+            });
+        }
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete race' });
     }
 });
 

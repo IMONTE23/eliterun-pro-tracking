@@ -1,0 +1,189 @@
+/* ============================================
+   RACING DASHBOARD STYLES
+   Add these styles to styles.css
+   ============================================ */
+
+/* Distance Filter Tabs */
+.distance-filters {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.distance-filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.distance-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.distance-filter-btn.active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+    border-color: rgba(99, 102, 241, 0.6);
+    color: #ffffff;
+}
+
+/* Racing Charts Grid */
+.racing-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.racing-chart-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.racing-chart-card canvas {
+    max-height: 300px;
+}
+
+/* Race List */
+.race-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.race-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.race-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+}
+
+.race-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.race-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.race-date {
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.race-stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.race-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.race-stat .stat-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.race-stat .stat-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.race-notes {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    font-style: italic;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border-left: 3px solid rgba(99, 102, 241, 0.5);
+}
+
+.race-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .distance-filters {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .distance-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .distance-filter-btn {
+        flex-shrink: 0;
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+    }
+
+    .racing-charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .race-stats {
+        gap: 1rem;
+    }
+
+    .race-stat {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .race-main {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .race-stats {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .race-stat {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

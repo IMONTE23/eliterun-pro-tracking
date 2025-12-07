@@ -1,0 +1,83 @@
+[
+    {
+        "raceName": "Lazada",
+        "date": "2025-10-26",
+        "distance": 5,
+        "time": 1185,
+        "hr": 175,
+        "pace": 237,
+        "notes": "First 5k"
+    },
+    {
+        "raceName": "Bangkok Marathon 2024",
+        "date": "2024-11-30",
+        "distance": 42.195,
+        "time": 13140,
+        "hr": 156,
+        "pace": 311.5,
+        "notes": "First Full Marathon - Great experience!"
+    },
+    {
+        "raceName": "Chiang Mai Half Marathon",
+        "date": "2024-11-15",
+        "distance": 21.1,
+        "time": 6300,
+        "hr": 162,
+        "pace": 298.6,
+        "notes": "Beautiful scenery"
+    },
+    {
+        "raceName": "Phuket Half Marathon",
+        "date": "2024-10-20",
+        "distance": 21.1,
+        "time": 6480,
+        "hr": 159,
+        "pace": 307.1,
+        "notes": "Hot and humid"
+    },
+    {
+        "raceName": "Bangkok 10K Run",
+        "date": "2024-10-05",
+        "distance": 10,
+        "time": 2820,
+        "hr": 165,
+        "pace": 282,
+        "notes": "Personal best!"
+    },
+    {
+        "raceName": "Lumpini Park 10K",
+        "date": "2024-09-15",
+        "distance": 10,
+        "time": 2940,
+        "hr": 163,
+        "pace": 294,
+        "notes": "Early morning run"
+    },
+    {
+        "raceName": "City 10K Challenge",
+        "date": "2024-08-25",
+        "distance": 10,
+        "time": 3000,
+        "hr": 168,
+        "pace": 300,
+        "notes": "First 10K race"
+    },
+    {
+        "raceName": "Rama 9 Park 5K",
+        "date": "2024-09-01",
+        "distance": 5,
+        "time": 1380,
+        "hr": 170,
+        "pace": 276,
+        "notes": "Speed training"
+    },
+    {
+        "raceName": "Samut Prakan Half Marathon",
+        "date": "2024-09-30",
+        "distance": 21.1,
+        "time": 6240,
+        "hr": 161,
+        "pace": 295.7,
+        "notes": "New PR!"
+    }
+]
