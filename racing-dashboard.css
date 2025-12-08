@@ -136,6 +136,30 @@
     justify-content: flex-end;
 }
 
+/* Race Form Grid Layout */
+.race-form-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+}
+
+.race-form-grid .input-group {
+    grid-column: span 2;
+    /* Default: 3 items per row (Distance, Time, HR) */
+}
+
+.race-form-grid .input-group:nth-child(1),
+/* Race Name */
+.race-form-grid .input-group:nth-child(2) {
+    /* Date */
+    grid-column: span 3;
+    /* 2 items per row */
+}
+
+.race-form-grid .input-group.full-width {
+    grid-column: 1 / -1;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .distance-filters {
@@ -167,6 +191,17 @@
     .race-stat {
         flex: 1 1 calc(50% - 0.5rem);
         min-width: 120px;
+    }
+
+    /* Reset form grid for mobile */
+    .race-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .race-form-grid .input-group,
+    .race-form-grid .input-group:nth-child(1),
+    .race-form-grid .input-group:nth-child(2) {
+        grid-column: 1 / -1;
     }
 }
 
