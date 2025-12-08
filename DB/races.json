@@ -1,11 +1,20 @@
 [
     {
+        "raceName": "Double bridge 2024",
+        "date": "2024-08-18",
+        "distance": 21.1,
+        "time": 6240,
+        "hr": 179,
+        "pace": 295.7345971563981,
+        "notes": "First Half"
+    },
+    {
         "raceName": "Lazada",
         "date": "2025-10-26",
         "distance": 5,
-        "time": 1185,
+        "time": 1170,
         "hr": 175,
-        "pace": 237,
+        "pace": 234,
         "notes": "First 5k"
     },
     {
@@ -36,30 +45,30 @@
         "notes": "Hot and humid"
     },
     {
-        "raceName": "Bangkok 10K Run",
-        "date": "2024-10-05",
+        "raceName": "Pataya 2024",
+        "date": "2024-07-20",
         "distance": 10,
         "time": 2820,
-        "hr": 165,
+        "hr": 170,
         "pace": 282,
         "notes": "Personal best!"
     },
     {
-        "raceName": "Lumpini Park 10K",
-        "date": "2024-09-15",
+        "raceName": "LG 2024",
+        "date": "2024-06-16",
         "distance": 10,
-        "time": 2940,
-        "hr": 163,
-        "pace": 294,
-        "notes": "Early morning run"
+        "time": 3120,
+        "hr": 178,
+        "pace": 312,
+        "notes": "SUP 1"
     },
     {
-        "raceName": "City 10K Challenge",
-        "date": "2024-08-25",
+        "raceName": "ATM 2023",
+        "date": "2023-12-03",
         "distance": 10,
-        "time": 3000,
-        "hr": 168,
-        "pace": 300,
+        "time": 3740,
+        "hr": 175,
+        "pace": 374,
         "notes": "First 10K race"
     },
     {
