@@ -100,6 +100,35 @@ function calculateForecast(dataPoints, periods = 1) {
     return forecast;
 }
 
+function calculateVDOTForecast(races, targetDistance) {
+    if (races.length === 0) return null;
+
+    // Calculate VDOT for each race
+    let totalVDOT = 0;
+    let validCount = 0;
+
+    races.forEach(race => {
+        if (typeof calculateVDOT === 'function') {
+            const vdot = calculateVDOT(race.distance, race.time);
+            if (vdot > 0) {
+                totalVDOT += vdot;
+                validCount++;
+            }
+        }
+    });
+
+    if (validCount === 0) return null;
+
+    const avgVDOT = totalVDOT / validCount;
+
+    // Predict time for the target distance using Average VDOT
+    if (typeof predictTimeFromVDOT === 'function') {
+        return predictTimeFromVDOT(avgVDOT, targetDistance); // Returns seconds
+    }
+
+    return null;
+}
+
 // ============================================
 // RACING DASHBOARD - CHARTS
 // ============================================
@@ -108,12 +137,12 @@ function renderRacingCharts(distance) {
     console.log('Updating charts for distance:', distance);
     const races = filterRacesByDistance(distance);
 
-    createRacingFinishTimeChart(races);
-    createRacingPaceChart(races);
+    createRacingFinishTimeChart(races, distance);
+    createRacingPaceChart(races, distance);
     createRacingHRChart(races);
 }
 
-function createRacingFinishTimeChart(races) {
+function createRacingFinishTimeChart(races, distance) {
     const canvas = document.getElementById('racing-finish-time-chart');
     if (!canvas) return;
 
@@ -126,17 +155,22 @@ function createRacingFinishTimeChart(races) {
     const times = races.map(r => r.time / 60); // Convert to minutes
     const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
 
-    // Forecast
-    const forecast = calculateForecast(times, 1);
-    const forecastLabel = 'Forecast';
+    // Forecast using VDOT
+    const predictedSeconds = calculateVDOTForecast(races, distance);
+    const forecastValue = predictedSeconds ? predictedSeconds / 60 : null; // Convert to minutes
+    const forecastLabel = 'Forecast (Avg VDOT)';
+
+    const chartLabels = forecastValue ? [...labels, forecastLabel] : labels;
+    const chartData = [...times, null];
+    const forecastData = forecastValue ? [...Array(times.length).fill(null), forecastValue] : [];
 
     racingFinishTimeChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [...labels, forecastLabel],
+            labels: chartLabels,
             datasets: [{
                 label: 'Actual Time',
-                data: [...times, null],
+                data: chartData,
                 borderColor: 'rgba(99, 102, 241, 1)',
                 backgroundColor: 'rgba(99, 102, 241, 0.1)',
                 borderWidth: 3,
@@ -144,16 +178,16 @@ function createRacingFinishTimeChart(races) {
                 tension: 0.4,
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(99, 102, 241, 1)'
-            }, {
+            }, ...(forecastValue ? [{
                 label: 'Forecast',
-                data: [...Array(times.length).fill(null), forecast[0]],
+                data: forecastData,
                 borderColor: 'rgba(168, 85, 247, 1)',
                 backgroundColor: 'rgba(168, 85, 247, 0.1)',
                 borderWidth: 2,
                 borderDash: [5, 5],
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(168, 85, 247, 1)'
-            }]
+            }] : [])]
         },
         options: {
             responsive: true,
@@ -193,7 +227,7 @@ function createRacingFinishTimeChart(races) {
     });
 }
 
-function createRacingPaceChart(races) {
+function createRacingPaceChart(races, distance) {
     const canvas = document.getElementById('racing-pace-chart');
     if (!canvas) return;
 
@@ -206,17 +240,22 @@ function createRacingPaceChart(races) {
     const paces = races.map(r => (r.time / r.distance / 60)); // min/km
     const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
 
-    // Forecast
-    const forecast = calculateForecast(paces, 1);
-    const forecastLabel = 'Forecast';
+    // Forecast using VDOT
+    const predictedSeconds = calculateVDOTForecast(races, distance);
+    const predictedPace = predictedSeconds ? (predictedSeconds / distance / 60) : null; // min/km
+    const forecastLabel = 'Forecast (Avg VDOT)';
+
+    const chartLabels = predictedPace ? [...labels, forecastLabel] : labels;
+    const chartData = [...paces, null];
+    const forecastData = predictedPace ? [...Array(paces.length).fill(null), predictedPace] : [];
 
     racingPaceChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [...labels, forecastLabel],
+            labels: chartLabels,
             datasets: [{
                 label: 'Actual Pace',
-                data: [...paces, null],
+                data: chartData,
                 borderColor: 'rgba(16, 185, 129, 1)',
                 backgroundColor: 'rgba(16, 185, 129, 0.1)',
                 borderWidth: 3,
@@ -224,16 +263,16 @@ function createRacingPaceChart(races) {
                 tension: 0.4,
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(16, 185, 129, 1)'
-            }, {
+            }, ...(predictedPace ? [{
                 label: 'Forecast',
-                data: [...Array(paces.length).fill(null), forecast[0]],
+                data: forecastData,
                 borderColor: 'rgba(20, 184, 166, 1)',
                 backgroundColor: 'rgba(20, 184, 166, 0.1)',
                 borderWidth: 2,
                 borderDash: [5, 5],
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(20, 184, 166, 1)'
-            }]
+            }] : [])]
         },
         options: {
             responsive: true,
