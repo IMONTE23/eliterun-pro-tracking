@@ -265,10 +265,16 @@ function createPaceChart() {
 document.getElementById('calculate-btn').addEventListener('click', calculatePredictions);
 
 function calculatePredictions() {
-    const distance = parseFloat(document.getElementById('race-distance').value);
-    const hours = parseInt(document.getElementById('race-hours').value) || 0;
-    const minutes = parseInt(document.getElementById('race-minutes').value) || 0;
-    const seconds = parseInt(document.getElementById('race-seconds').value) || 0;
+    // Use querySelector to target inputs specifically in the calculator card to avoid ID conflicts
+    const distanceInput = document.querySelector('.calculator-card #race-distance');
+    const hoursInput = document.querySelector('.calculator-card #race-hours');
+    const minutesInput = document.querySelector('.calculator-card #race-minutes');
+    const secondsInput = document.querySelector('.calculator-card #race-seconds');
+
+    const distance = parseFloat(distanceInput ? distanceInput.value : 0);
+    const hours = parseInt(hoursInput ? hoursInput.value : 0) || 0;
+    const minutes = parseInt(minutesInput ? minutesInput.value : 0) || 0;
+    const seconds = parseInt(secondsInput ? secondsInput.value : 0) || 0;
 
     if (!distance || distance <= 0) {
         alert('Please enter a valid distance');
