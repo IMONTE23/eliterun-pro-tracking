@@ -398,7 +398,11 @@ function resetForm() {
     document.getElementById('save-run-btn').textContent = 'Save Run';
     document.querySelector('#run-form h3').textContent = 'Add New Run';
 
-    document.getElementById('run-date').valueAsDate = new Date();
+    if (document.getElementById('run-date')._flatpickr) {
+        document.getElementById('run-date')._flatpickr.setDate(new Date());
+    } else {
+        document.getElementById('run-date').valueAsDate = new Date();
+    }
     document.getElementById('run-distance').value = '';
     document.getElementById('run-time-h').value = '';
     document.getElementById('run-time-m').value = '';
@@ -423,7 +427,11 @@ document.getElementById('dashboard-cancel-form-btn').addEventListener('click', (
 document.getElementById('dashboard-save-run-btn').addEventListener('click', saveDashboardRun);
 
 function resetDashboardForm() {
-    document.getElementById('dashboard-run-date').valueAsDate = new Date();
+    if (document.getElementById('dashboard-run-date')._flatpickr) {
+        document.getElementById('dashboard-run-date')._flatpickr.setDate(new Date());
+    } else {
+        document.getElementById('dashboard-run-date').valueAsDate = new Date();
+    }
     document.getElementById('dashboard-run-distance').value = '';
     document.getElementById('dashboard-run-time-h').value = '';
     document.getElementById('dashboard-run-time-m').value = '';
@@ -552,7 +560,11 @@ window.editRun = function (index) {
     editingIndex = index;
 
     // Populate form
-    document.getElementById('run-date').value = run.date;
+    if (document.getElementById('run-date')._flatpickr) {
+        document.getElementById('run-date')._flatpickr.setDate(run.date);
+    } else {
+        document.getElementById('run-date').value = run.date;
+    }
     document.getElementById('run-distance').value = run.distance;
 
     const h = Math.floor(run.time / 3600);
@@ -661,7 +673,17 @@ document.getElementById('sort-select').addEventListener('change', renderHistoryT
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Flatpickr
+    const flatpickrConfig = {
+        dateFormat: "Y-m-d", // Value format (ISO)
+        altInput: true,
+        altFormat: "d/m/Y", // Display format
+        defaultDate: "today"
+    };
+
+    flatpickr("#run-date", flatpickrConfig);
+    flatpickr("#dashboard-run-date", flatpickrConfig);
+    flatpickr("#race-date", flatpickrConfig);
+
     fetchRuns();
-    document.getElementById('run-date').valueAsDate = new Date();
-    document.getElementById('dashboard-run-date').valueAsDate = new Date();
 });

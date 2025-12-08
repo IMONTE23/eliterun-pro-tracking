@@ -460,7 +460,13 @@ function resetRaceForm() {
     if (saveBtn) saveBtn.textContent = 'Save Race';
 
     const dateInput = document.getElementById('race-date');
-    if (dateInput) dateInput.valueAsDate = new Date();
+    if (dateInput) {
+        if (dateInput._flatpickr) {
+            dateInput._flatpickr.setDate(new Date());
+        } else {
+            dateInput.valueAsDate = new Date();
+        }
+    }
 
     ['race-name', 'race-distance', 'race-time-h', 'race-time-m', 'race-time-s', 'race-hr', 'race-notes'].forEach(id => {
         const element = document.getElementById(id);
@@ -534,7 +540,12 @@ window.editRaceEntry = function (index) {
     editingRaceIndex = index;
 
     document.getElementById('race-name').value = race.raceName || '';
-    document.getElementById('race-date').value = race.date;
+    const dateInput = document.getElementById('race-date');
+    if (dateInput._flatpickr) {
+        dateInput._flatpickr.setDate(race.date);
+    } else {
+        dateInput.value = race.date;
+    }
     document.getElementById('race-distance').value = race.distance;
 
     const h = Math.floor(race.time / 3600);
