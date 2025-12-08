@@ -337,21 +337,43 @@ function renderPaceZones(vdot) {
     const zones = [
         { name: 'Easy', class: 'zone-easy', desc: 'Conversational pace', multiplier: 0.70 },
         { name: 'Marathon', class: 'zone-marathon', desc: 'Race pace', multiplier: 0.84 },
-        { name: 'Threshold', class: 'zone-threshold', desc: 'Comfortably hard', multiplier: 0.88 },
-        { name: 'Interval', class: 'zone-interval', desc: '5K pace', multiplier: 0.98 },
-        { name: 'Repetition', class: 'zone-repetition', desc: 'Fast bursts', multiplier: 1.0 }
+        { name: 'Threshold', class: 'zone-threshold', desc: 'Comfortably hard', multiplier: 0.88, showIntervals: true },
+        { name: 'Interval', class: 'zone-interval', desc: '5K pace', multiplier: 0.98, showIntervals: true },
+        { name: 'Repetition', class: 'zone-repetition', desc: 'Fast bursts', multiplier: 1.0, showIntervals: true }
     ];
+
+    const intervalDistances = [1200, 800, 600, 400, 300, 200];
 
     container.innerHTML = zones.map(zone => {
         const velocity = 29.54 + 5.000663 * vdot * zone.multiplier;
         const paceSeconds = 1000 / velocity * 60;
         const pace = formatPace(paceSeconds, 1);
 
+        let intervalsHtml = '';
+        if (zone.showIntervals) {
+            const intervals = intervalDistances.map(dist => {
+                const timeSeconds = paceSeconds * (dist / 1000);
+                const m = Math.floor(timeSeconds / 60);
+                const s = Math.round(timeSeconds % 60);
+                const shortTime = `${m}:${String(s).padStart(2, '0')}`;
+
+                return `<div class="interval-item"><span>${dist}m</span><strong>${shortTime}</strong></div>`;
+            }).join('');
+
+            intervalsHtml = `<div class="zone-intervals">${intervals}</div>`;
+        }
+
         return `
-            <div class="pace-zone ${zone.class}">
-                <div class="zone-name">${zone.name}</div>
-                <div class="zone-description">${zone.desc}</div>
-                <div class="zone-pace">${pace}/km</div>
+            <div class="pace-zone ${zone.class} ${zone.showIntervals ? 'has-intervals' : ''}">
+                <div class="zone-header">
+                    <div class="zone-name">${zone.name}</div>
+                    <div class="zone-description">${zone.desc}</div>
+                </div>
+                <div class="zone-main-pace">
+                    <span class="label">Pace:</span>
+                    <span class="value">${pace}/km</span>
+                </div>
+                ${intervalsHtml}
             </div>
         `;
     }).join('');
