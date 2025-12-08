@@ -10,6 +10,12 @@ A professional running analytics dashboard that helps runners track their perfor
 - **Predicted Race Times**: Predict race times based on a recent race result
 - **Recent Activity**: Quick view of your most recent runs
 
+### 🏆 Race Performance
+- **Race History**: Log and manage your race results separately from training runs
+- **Performance Forecasting**: Predict future race times based on your **Average VDOT** from past races
+- **Progress Tracking**: Visualize your improvement in finish times, pace, and heart rate over time
+- **Distance Filtering**: Analyze performance specific to 5K, 10K, Half Marathon, and Marathon distances
+
 ### 🎯 Race Time Predictions
 - **Riegel's Formula**: Predict race times based on a recent race result
 - **VDOT Calculator**: Calculate your VDOT score using Jack Daniels' Running Formula
@@ -32,7 +38,6 @@ A professional running analytics dashboard that helps runners track their perfor
 2. Navigate to the project directory:
    ```bash
    cd {PATH TO eliterun-pro-tracking}
-eliterun-pro-tracking
    ```
 3. Install dependencies:
    ```bash
@@ -52,7 +57,7 @@ eliterun-pro-tracking
    ```
 
 2. Open your browser and navigate to:
-   [http://localhost:3000](http://localhost:3000)
+   (http://localhost:3000)
 
 ## Usage
 
@@ -61,6 +66,13 @@ eliterun-pro-tracking
 2. Click **Add New Run**
 3. Fill in your run details (date, distance, time, etc.)
 4. Click **Save Run**
+
+### Tracking Race Performance
+1. Go to the **Race Performance** tab
+2. Click **Add New Race**
+3. Enter your race details (Name, Date, Distance, Time, HR)
+   - *Note: Distance, Time, and HR inputs are conveniently grouped for quick entry*
+4. View your progress charts and VDOT-based forecasts for that distance
 
 ### Predicting Race Times
 1. Go to the **Race Predictions** tab
@@ -72,19 +84,22 @@ eliterun-pro-tracking
 
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript, Chart.js
 - **Backend**: Node.js, Express
-- **Database**: Local JSON file system (`DB/runs.json`)
+- **Database**: Local JSON file system (`DB/runs.json`, `DB/races.json`)
 
 ## Project Structure
 
 ```
 eliterun-pro-tracking/
 ├── DB/
-│   └── runs.json   # Database file
-├── index.html      # Main HTML file
-├── styles.css      # Styling
-├── app.js          # Frontend logic
-├── server.js       # Backend server & API
-└── README.md       # This file
+│   ├── runs.json       # Training runs database
+│   └── races.json      # Race history database
+├── index.html          # Main HTML file
+├── styles.css          # Main styling
+├── racing-dashboard.css # Race dashboard specific styling
+├── app.js              # Main frontend logic
+├── racing-dashboard.js # Race performance logic
+├── server.js           # Backend server & API
+└── README.md           # This file
 ```
 
 ## License
