@@ -108,7 +108,10 @@ function calculateVDOTForecast(races, targetDistance) {
     let totalVDOT = 0;
     let validCount = 0;
 
-    races.forEach(race => {
+    // Use only the latest 4 races for forecast
+    const recentRaces = races.slice(-4);
+
+    recentRaces.forEach(race => {
         if (typeof calculateVDOT === 'function') {
             const vdot = calculateVDOT(race.distance, race.time);
             if (vdot > 0) {
@@ -155,7 +158,7 @@ function createRacingFinishTimeChart(races, distance) {
     }
 
     const times = races.map(r => r.time / 60); // Convert to minutes
-    const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }));
 
     // Calculate Average
     const avgTime = times.length > 0 ? times.reduce((a, b) => a + b, 0) / times.length : 0;
@@ -164,7 +167,7 @@ function createRacingFinishTimeChart(races, distance) {
     // Forecast using VDOT
     const predictedSeconds = calculateVDOTForecast(races, distance);
     const forecastValue = predictedSeconds ? predictedSeconds / 60 : null; // Convert to minutes
-    const forecastLabel = 'Forecast (Avg VDOT)';
+    const forecastLabel = 'Forecast';
 
     const chartLabels = forecastValue ? [...labels, forecastLabel] : labels;
     const chartData = [...times, null];
@@ -253,7 +256,7 @@ function createRacingPaceChart(races, distance) {
     }
 
     const paces = races.map(r => (r.time / r.distance / 60)); // min/km
-    const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }));
 
     // Calculate Average
     const avgPace = paces.length > 0 ? paces.reduce((a, b) => a + b, 0) / paces.length : 0;
@@ -262,7 +265,7 @@ function createRacingPaceChart(races, distance) {
     // Forecast using VDOT
     const predictedSeconds = calculateVDOTForecast(races, distance);
     const predictedPace = predictedSeconds ? (predictedSeconds / distance / 60) : null; // min/km
-    const forecastLabel = 'Forecast (Avg VDOT)';
+    const forecastLabel = 'Forecast';
 
     const chartLabels = predictedPace ? [...labels, forecastLabel] : labels;
     const chartData = [...paces, null];
@@ -352,7 +355,7 @@ function createRacingHRChart(races) {
 
     const racesWithHR = races.filter(r => r.hr);
     const hrs = racesWithHR.map(r => r.hr);
-    const labels = racesWithHR.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    const labels = racesWithHR.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }));
 
     // Calculate Average
     const avgHR = hrs.length > 0 ? hrs.reduce((a, b) => a + b, 0) / hrs.length : 0;
@@ -430,7 +433,7 @@ function createRacingCadenceChart(races) {
 
     const racesWithCadence = races.filter(r => r.cadence);
     const cadences = racesWithCadence.map(r => r.cadence);
-    const labels = racesWithCadence.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    const labels = racesWithCadence.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' }));
 
     // Calculate Average
     const avgCadence = cadences.length > 0 ? cadences.reduce((a, b) => a + b, 0) / cadences.length : 0;

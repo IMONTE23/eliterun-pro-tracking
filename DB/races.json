@@ -1,5 +1,35 @@
 [
     {
+        "raceName": "PEA 2025",
+        "date": "2025-09-28",
+        "distance": 10,
+        "time": 2510,
+        "hr": 176,
+        "cadence": 172,
+        "pace": 251,
+        "notes": "PB!!!"
+    },
+    {
+        "raceName": "LG 2025",
+        "date": "2025-06-15",
+        "distance": 10,
+        "time": 2515,
+        "hr": 176,
+        "cadence": 174,
+        "pace": 251.5,
+        "notes": "PB!!!! สะพาน"
+    },
+    {
+        "raceName": "Adidas Run 2025",
+        "date": "2025-02-22",
+        "distance": 10,
+        "time": 2640,
+        "hr": 175,
+        "cadence": 171,
+        "pace": 264,
+        "notes": "First sub 45"
+    },
+    {
         "raceName": "Rama 8 by vittel",
         "date": "2024-09-22",
         "distance": 10,
