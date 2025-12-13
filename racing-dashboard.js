@@ -522,57 +522,55 @@ function renderRaceList(distance) {
 
     container.innerHTML = races.map((race, index) => {
         const originalIndex = raceHistory.indexOf(race);
-        const date = new Date(race.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        const date = new Date(race.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         const time = formatTime(race.time);
         const pace = formatPace(race.time, race.distance);
 
         return `
             <div class="race-item">
-                <div class="race-main">
-                    <div class="race-name">${race.raceName || 'Race'}</div>
-                    <div class="race-date">${date}</div>
-                </div>
-                <div class="race-stats">
-                    <div class="race-stat">
-                        <span class="stat-label">Distance</span>
-                        <span class="stat-value">${race.distance.toFixed(2)} km</span>
+                <div class="race-row">
+                    <div class="race-main-info">
+                        <div class="race-name">${race.raceName || 'Race'}</div>
+                        <div class="race-date">${date}</div>
                     </div>
-                    <div class="race-stat">
-                        <span class="stat-label">Time</span>
-                        <span class="stat-value">${time}</span>
+                    <div class="race-key-stats">
+                        <div class="race-stat-col">
+                            <span class="stat-value-large">${time}</span>
+                            <span class="stat-label-small">Finish Time</span>
+                        </div>
+                        <div class="race-stat-col">
+                            <span class="stat-value-large">${pace}</span>
+                            <span class="stat-label-small">Pace/km</span>
+                        </div>
+                        ${race.hr ? `
+                        <div class="race-stat-col">
+                            <span class="stat-value-large">${race.hr}</span>
+                            <span class="stat-label-small">Avg HR</span>
+                        </div>
+                        ` : ''}
+                        ${race.cadence ? `
+                        <div class="race-stat-col">
+                            <span class="stat-value-large">${race.cadence}</span>
+                            <span class="stat-label-small">Cadence</span>
+                        </div>
+                        ` : ''}
                     </div>
-                    <div class="race-stat">
-                        <span class="stat-label">Pace</span>
-                        <span class="stat-value">${pace}/km</span>
+                    <div class="race-actions">
+                        <button class="btn-icon" onclick="editRaceEntry(${originalIndex})" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" onclick="removeRaceEntry(${originalIndex})" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
                     </div>
-                    ${race.hr ? `
-                    <div class="race-stat">
-                        <span class="stat-label">Avg HR</span>
-                        <span class="stat-value">${race.hr} bpm</span>
-                    </div>
-                    ` : ''}
-                    ${race.cadence ? `
-                    <div class="race-stat">
-                        <span class="stat-label">Cadence</span>
-                        <span class="stat-value">${race.cadence} spm</span>
-                    </div>
-                    ` : ''}
                 </div>
                 ${race.notes ? `<div class="race-notes">${race.notes}</div>` : ''}
-                <div class="race-actions">
-                    <button class="btn-icon" onclick="editRaceEntry(${originalIndex})" title="Edit">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                        </svg>
-                    </button>
-                    <button class="btn-icon" onclick="removeRaceEntry(${originalIndex})" title="Delete">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                    </button>
-                </div>
             </div>
         `;
     }).join('');

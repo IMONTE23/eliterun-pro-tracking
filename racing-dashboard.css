@@ -61,17 +61,14 @@
 .race-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .race-item {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 
@@ -79,64 +76,77 @@
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(99, 102, 241, 0.3);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.race-main {
+.race-row {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+}
+
+.race-main-info {
+    flex: 0 0 auto;
+    min-width: 200px;
 }
 
 .race-name {
     font-size: 1.125rem;
     font-weight: 600;
     color: #ffffff;
+    margin-bottom: 0.25rem;
 }
 
 .race-date {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: #94a3b8;
 }
 
-.race-stats {
+.race-key-stats {
     display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    gap: 2rem;
+    flex: 1;
+    align-items: center;
 }
 
-.race-stat {
+.race-stat-col {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 0.25rem;
 }
 
-.race-stat .stat-label {
-    font-size: 0.75rem;
+.stat-value-large {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    line-height: 1.2;
+}
+
+.stat-label-small {
+    font-size: 0.6875rem;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-}
-
-.race-stat .stat-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #e2e8f0;
+    font-weight: 500;
 }
 
 .race-notes {
     font-size: 0.875rem;
     color: #94a3b8;
     font-style: italic;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    border-left: 3px solid rgba(99, 102, 241, 0.5);
+    padding: 0.875rem 1.5rem;
+    background: rgba(99, 102, 241, 0.05);
+    border-top: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .race-actions {
     display: flex;
     gap: 0.5rem;
-    justify-content: flex-end;
+    flex-shrink: 0;
 }
 
 /* Race Form Grid Layout */
@@ -187,13 +197,30 @@
         grid-template-columns: 1fr;
     }
 
-    .race-stats {
+    .race-row {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 1rem;
     }
 
-    .race-stat {
-        flex: 1 1 calc(50% - 0.5rem);
-        min-width: 120px;
+    .race-main-info {
+        width: 100%;
+    }
+
+    .race-key-stats {
+        width: 100%;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .race-stat-col {
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .race-actions {
+        width: 100%;
+        justify-content: flex-end;
     }
 
     /* Reset form grid for mobile */
@@ -209,19 +236,19 @@
 }
 
 @media (max-width: 480px) {
-    .race-main {
-        flex-direction: column;
-        gap: 0.5rem;
+    .race-key-stats {
+        gap: 1rem;
     }
 
-    .race-stats {
-        flex-direction: column;
-        gap: 0.75rem;
+    .race-stat-col {
+        flex: 1 1 calc(50% - 0.5rem);
     }
 
-    .race-stat {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+    .stat-value-large {
+        font-size: 1.125rem;
+    }
+
+    .stat-label-small {
+        font-size: 0.625rem;
     }
 }
