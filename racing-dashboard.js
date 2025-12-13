@@ -10,6 +10,7 @@ let selectedRaceDistance = 5; // Default: 5km
 let racingFinishTimeChart = null;
 let racingPaceChart = null;
 let racingHRChart = null;
+let racingCadenceChart = null;
 
 // ============================================
 // UTILITY FUNCTIONS
@@ -140,6 +141,7 @@ function renderRacingCharts(distance) {
     createRacingFinishTimeChart(races, distance);
     createRacingPaceChart(races, distance);
     createRacingHRChart(races);
+    createRacingCadenceChart(races);
 }
 
 function createRacingFinishTimeChart(races, distance) {
@@ -416,6 +418,84 @@ function createRacingHRChart(races) {
     });
 }
 
+function createRacingCadenceChart(races) {
+    const canvas = document.getElementById('racing-cadence-chart');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    if (racingCadenceChart) {
+        racingCadenceChart.destroy();
+    }
+
+    const racesWithCadence = races.filter(r => r.cadence);
+    const cadences = racesWithCadence.map(r => r.cadence);
+    const labels = racesWithCadence.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+
+    // Calculate Average
+    const avgCadence = cadences.length > 0 ? cadences.reduce((a, b) => a + b, 0) / cadences.length : 0;
+    const avgData = Array(cadences.length).fill(avgCadence);
+
+    // Forecast
+    const forecast = cadences.length >= 2 ? calculateForecast(cadences, 1) : [];
+    const forecastLabel = 'Forecast';
+
+    const chartLabels = forecast.length > 0 ? [...labels, forecastLabel] : labels;
+    const avgChartData = forecast.length > 0 ? [...avgData, avgCadence] : avgData;
+
+    racingCadenceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: 'Actual Cadence',
+                data: [...cadences, null],
+                borderColor: 'rgba(249, 115, 22, 1)',
+                backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: 'rgba(249, 115, 22, 1)'
+            }, {
+                label: 'Average',
+                data: avgChartData,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false
+            }, ...(forecast.length > 0 ? [{
+                label: 'Forecast',
+                data: [...Array(cadences.length).fill(null), forecast[0]],
+                borderColor: 'rgba(234, 179, 8, 1)',
+                backgroundColor: 'rgba(234, 179, 8, 0.1)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 6,
+                pointBackgroundColor: 'rgba(234, 179, 8, 1)'
+            }] : [])]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: true, labels: { color: '#94a3b8' } }
+            },
+            scales: {
+                y: {
+                    ticks: { color: '#94a3b8' },
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                },
+                x: {
+                    ticks: { color: '#94a3b8' },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+}
+
 // ============================================
 // RACING DASHBOARD - RACE LIST
 // ============================================
@@ -468,6 +548,12 @@ function renderRaceList(distance) {
                         <span class="stat-value">${race.hr} bpm</span>
                     </div>
                     ` : ''}
+                    ${race.cadence ? `
+                    <div class="race-stat">
+                        <span class="stat-label">Cadence</span>
+                        <span class="stat-value">${race.cadence} spm</span>
+                    </div>
+                    ` : ''}
                 </div>
                 ${race.notes ? `<div class="race-notes">${race.notes}</div>` : ''}
                 <div class="race-actions">
@@ -510,7 +596,7 @@ function resetRaceForm() {
         }
     }
 
-    ['race-name', 'race-distance', 'race-time-h', 'race-time-m', 'race-time-s', 'race-hr', 'race-notes'].forEach(id => {
+    ['race-name', 'race-distance', 'race-time-h', 'race-time-m', 'race-time-s', 'race-hr', 'race-cadence', 'race-notes'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.value = '';
     });
@@ -528,6 +614,7 @@ async function saveRace() {
     const minutes = parseInt(document.getElementById('race-time-m').value) || 0;
     const seconds = parseInt(document.getElementById('race-time-s').value) || 0;
     const hr = parseInt(document.getElementById('race-hr').value) || null;
+    const cadence = parseInt(document.getElementById('race-cadence').value) || null;
     const notes = document.getElementById('race-notes').value;
 
     if (!raceName || !date || !distance || distance <= 0) {
@@ -542,7 +629,7 @@ async function saveRace() {
     }
 
     const pace = time / distance; // pace in seconds per km
-    const raceData = { raceName, date, distance, time, hr, pace, notes };
+    const raceData = { raceName, date, distance, time, hr, cadence, pace, notes };
 
     try {
         let response;
@@ -598,6 +685,7 @@ window.editRaceEntry = function (index) {
     document.getElementById('race-time-m').value = m || '';
     document.getElementById('race-time-s').value = s || '';
     document.getElementById('race-hr').value = race.hr || '';
+    document.getElementById('race-cadence').value = race.cadence || '';
     document.getElementById('race-notes').value = race.notes || '';
 
     document.getElementById('race-form-title').textContent = 'Edit Race';

@@ -37,7 +37,8 @@
 /* Racing Charts Grid */
 .racing-charts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    /* Force 2 columns */
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -50,8 +51,10 @@
     backdrop-filter: blur(10px);
 }
 
+
+
 .racing-chart-card canvas {
-    max-height: 450px;
+    max-height: 500px;
 }
 
 /* Race List */

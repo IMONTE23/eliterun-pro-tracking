@@ -290,6 +290,10 @@
                                 <label for="race-hr">Avg Heart Rate (bpm)</label>
                                 <input type="number" id="race-hr" placeholder="150" min="0" max="220">
                             </div>
+                            <div class="input-group">
+                                <label for="race-cadence">Avg Cadence (spm)</label>
+                                <input type="number" id="race-cadence" placeholder="180" min="0" max="250">
+                            </div>
                             <div class="input-group full-width">
                                 <label for="race-notes">Notes</label>
                                 <input type="text" id="race-notes" placeholder="Great race!">
@@ -323,6 +327,13 @@
                             <h2>Average Heart Rate</h2>
                         </div>
                         <canvas id="racing-hr-chart"></canvas>
+                    </div>
+
+                    <div class="racing-chart-card">
+                        <div class="chart-header">
+                            <h2>Average Cadence</h2>
+                        </div>
+                        <canvas id="racing-cadence-chart"></canvas>
                     </div>
                 </div>
 

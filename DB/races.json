@@ -1,12 +1,13 @@
 [
     {
-        "raceName": "LG 2025",
-        "date": "2025-05-10",
+        "raceName": "Rama 8 by vittel",
+        "date": "2024-09-22",
         "distance": 10,
-        "time": 3455,
-        "hr": 150,
-        "pace": 345.5,
-        "notes": "rr"
+        "time": 2735,
+        "hr": 177,
+        "cadence": 170,
+        "pace": 273.5,
+        "notes": "No fit"
     },
     {
         "raceName": "Double bridge 2024",
@@ -23,6 +24,7 @@
         "distance": 5,
         "time": 1170,
         "hr": 175,
+        "cadence": 173,
         "pace": 234,
         "notes": "First 5k"
     },
@@ -41,6 +43,7 @@
         "distance": 10,
         "time": 2878,
         "hr": 179,
+        "cadence": 169,
         "pace": 287.8,
         "notes": "PB first sub 50"
     },
@@ -50,6 +53,7 @@
         "distance": 10,
         "time": 3120,
         "hr": 165,
+        "cadence": 169,
         "pace": 312,
         "notes": "first SUP 1"
     },
@@ -59,6 +63,7 @@
         "distance": 10,
         "time": 3740,
         "hr": 175,
+        "cadence": 162,
         "pace": 374,
         "notes": "First 10K race"
     },
