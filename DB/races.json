@@ -1,5 +1,15 @@
 [
     {
+        "raceName": "Korat 2024",
+        "date": "2024-11-10",
+        "distance": 21.1,
+        "time": 5900,
+        "hr": 170,
+        "cadence": 174,
+        "pace": 279.6208530805687,
+        "notes": "PB good weather a bit cool"
+    },
+    {
         "raceName": "PEA 2025",
         "date": "2025-09-28",
         "distance": 10,
@@ -59,12 +69,13 @@
         "notes": "First 5k"
     },
     {
-        "raceName": "Bangkok Marathon 2024",
+        "raceName": "Amezing Thailand Marathon 2025",
         "date": "2024-11-30",
         "distance": 42.195,
         "time": 13140,
         "hr": 156,
-        "pace": 311.5,
+        "cadence": 165,
+        "pace": 311.4113046569499,
         "notes": "First Full Marathon - Great experience!"
     },
     {
@@ -96,14 +107,5 @@
         "cadence": 162,
         "pace": 374,
         "notes": "First 10K race"
-    },
-    {
-        "raceName": "Samut Prakan Half Marathon",
-        "date": "2024-09-30",
-        "distance": 21.1,
-        "time": 6240,
-        "hr": 161,
-        "pace": 295.7,
-        "notes": "New PR!"
     }
 ]

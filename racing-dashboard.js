@@ -108,8 +108,8 @@ function calculateVDOTForecast(races, targetDistance) {
     let totalVDOT = 0;
     let validCount = 0;
 
-    // Use only the latest 4 races for forecast
-    const recentRaces = races.slice(-4);
+    // Use only the latest 3 races for forecast
+    const recentRaces = races.slice(-3);
 
     recentRaces.forEach(race => {
         if (typeof calculateVDOT === 'function') {
