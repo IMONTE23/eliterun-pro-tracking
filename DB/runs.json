@@ -1,5 +1,41 @@
 [
     {
+        "date": "2025-09-21",
+        "distance": 10,
+        "time": 2490,
+        "hr": 176,
+        "cadence": 172,
+        "elevation": 10,
+        "notes": ""
+    },
+    {
+        "date": "2025-12-11",
+        "distance": 4.32,
+        "time": 1320,
+        "hr": 160,
+        "cadence": 135,
+        "elevation": null,
+        "notes": "Interval 5*800 @3.46"
+    },
+    {
+        "date": "2025-12-10",
+        "distance": 9,
+        "time": 2844,
+        "hr": 151,
+        "cadence": 170,
+        "elevation": 2,
+        "notes": "Ez"
+    },
+    {
+        "date": "2025-12-06",
+        "distance": 14.23,
+        "time": 4221,
+        "hr": 160,
+        "cadence": 171,
+        "elevation": 9,
+        "notes": "LR after Marathon"
+    },
+    {
         "date": "2025-11-30",
         "distance": 42.195,
         "time": 13140,

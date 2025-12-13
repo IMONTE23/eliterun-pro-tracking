@@ -176,6 +176,10 @@ function createWeeklyChart() {
     const weeks = Object.keys(weeklyData).sort().slice(-8);
     const distances = weeks.map(w => weeklyData[w]);
 
+    // Calculate Average
+    const avgDistance = distances.length > 0 ? distances.reduce((a, b) => a + b, 0) / distances.length : 0;
+    const avgData = Array(distances.length).fill(avgDistance);
+
     weeklyChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -186,7 +190,18 @@ function createWeeklyChart() {
                 backgroundColor: 'rgba(99, 102, 241, 0.6)',
                 borderColor: 'rgba(99, 102, 241, 1)',
                 borderWidth: 2,
-                borderRadius: 8
+                borderRadius: 8,
+                order: 2
+            }, {
+                label: 'Average',
+                data: avgData,
+                type: 'line',
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false,
+                order: 1
             }]
         },
         options: {
@@ -219,7 +234,11 @@ function createPaceChart() {
     }
 
     const recentRuns = runHistory.slice(0, 10).reverse();
-    const paces = recentRuns.map(r => (r.time / r.distance / 60).toFixed(2));
+    const paces = recentRuns.map(r => r.time / r.distance / 60);
+
+    // Calculate Average
+    const avgPace = paces.length > 0 ? paces.reduce((a, b) => a + b, 0) / paces.length : 0;
+    const avgData = Array(paces.length).fill(avgPace);
 
     paceChartInstance = new Chart(ctx, {
         type: 'line',
@@ -235,6 +254,14 @@ function createPaceChart() {
                 tension: 0.4,
                 pointRadius: 5,
                 pointBackgroundColor: 'rgba(168, 85, 247, 1)'
+            }, {
+                label: 'Average',
+                data: avgData,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false
             }]
         },
         options: {
