@@ -50,31 +50,48 @@ function updateUI() {
 // NAVIGATION
 // ============================================
 
+function switchTab(tabName) {
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+
+    const link = document.querySelector(`[data-tab="${tabName}"]`);
+    if (link) link.classList.add('active');
+
+    const section = document.getElementById(`${tabName}-section`);
+    if (section) section.classList.add('active');
+
+    // Initialize tab-specific content
+    if (tabName === 'dashboard') initDashboard();
+    if (tabName === 'racing') initRacingDashboard();
+    if (tabName === 'history') renderHistoryTable();
+}
+
+function handleHashChange() {
+    const hash = window.location.hash.slice(1); // Remove the #
+    const validTabs = ['dashboard', 'racing', 'predictions', 'history'];
+
+    if (hash && validTabs.includes(hash)) {
+        switchTab(hash);
+    } else {
+        // Default to dashboard if no valid hash
+        switchTab('dashboard');
+        window.location.hash = '#dashboard';
+    }
+}
+
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const tab = link.dataset.tab;
-
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
-
-        link.classList.add('active');
-        document.getElementById(`${tab}-section`).classList.add('active');
-
-        if (tab === 'dashboard') initDashboard();
-        if (tab === 'racing') initRacingDashboard();
-        if (tab === 'history') renderHistoryTable();
+        window.location.hash = `#${tab}`;
+        switchTab(tab);
     });
 });
 
 document.querySelector('.view-all-link').addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
-
-    document.querySelector('[data-tab="history"]').classList.add('active');
-    document.getElementById('history-section').classList.add('active');
-    renderHistoryTable();
+    window.location.hash = '#history';
+    switchTab('history');
 });
 
 // ============================================
@@ -713,4 +730,10 @@ document.addEventListener('DOMContentLoaded', () => {
     flatpickr("#race-date", flatpickrConfig);
 
     fetchRuns();
+
+    // Handle hash navigation on page load
+    handleHashChange();
 });
+
+// Listen for hash changes (browser back/forward button)
+window.addEventListener('hashchange', handleHashChange);
