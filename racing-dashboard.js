@@ -155,6 +155,10 @@ function createRacingFinishTimeChart(races, distance) {
     const times = races.map(r => r.time / 60); // Convert to minutes
     const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
 
+    // Calculate Average
+    const avgTime = times.length > 0 ? times.reduce((a, b) => a + b, 0) / times.length : 0;
+    const avgData = Array(times.length).fill(avgTime);
+
     // Forecast using VDOT
     const predictedSeconds = calculateVDOTForecast(races, distance);
     const forecastValue = predictedSeconds ? predictedSeconds / 60 : null; // Convert to minutes
@@ -163,6 +167,7 @@ function createRacingFinishTimeChart(races, distance) {
     const chartLabels = forecastValue ? [...labels, forecastLabel] : labels;
     const chartData = [...times, null];
     const forecastData = forecastValue ? [...Array(times.length).fill(null), forecastValue] : [];
+    const avgChartData = forecastValue ? [...avgData, avgTime] : avgData;
 
     racingFinishTimeChart = new Chart(ctx, {
         type: 'line',
@@ -178,6 +183,14 @@ function createRacingFinishTimeChart(races, distance) {
                 tension: 0.4,
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(99, 102, 241, 1)'
+            }, {
+                label: 'Average',
+                data: avgChartData,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false
             }, ...(forecastValue ? [{
                 label: 'Forecast',
                 data: forecastData,
@@ -240,6 +253,10 @@ function createRacingPaceChart(races, distance) {
     const paces = races.map(r => (r.time / r.distance / 60)); // min/km
     const labels = races.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
 
+    // Calculate Average
+    const avgPace = paces.length > 0 ? paces.reduce((a, b) => a + b, 0) / paces.length : 0;
+    const avgData = Array(paces.length).fill(avgPace);
+
     // Forecast using VDOT
     const predictedSeconds = calculateVDOTForecast(races, distance);
     const predictedPace = predictedSeconds ? (predictedSeconds / distance / 60) : null; // min/km
@@ -248,6 +265,7 @@ function createRacingPaceChart(races, distance) {
     const chartLabels = predictedPace ? [...labels, forecastLabel] : labels;
     const chartData = [...paces, null];
     const forecastData = predictedPace ? [...Array(paces.length).fill(null), predictedPace] : [];
+    const avgChartData = predictedPace ? [...avgData, avgPace] : avgData;
 
     racingPaceChart = new Chart(ctx, {
         type: 'line',
@@ -263,6 +281,14 @@ function createRacingPaceChart(races, distance) {
                 tension: 0.4,
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(16, 185, 129, 1)'
+            }, {
+                label: 'Average',
+                data: avgChartData,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false
             }, ...(predictedPace ? [{
                 label: 'Forecast',
                 data: forecastData,
@@ -326,14 +352,21 @@ function createRacingHRChart(races) {
     const hrs = racesWithHR.map(r => r.hr);
     const labels = racesWithHR.map(r => new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
 
+    // Calculate Average
+    const avgHR = hrs.length > 0 ? hrs.reduce((a, b) => a + b, 0) / hrs.length : 0;
+    const avgData = Array(hrs.length).fill(avgHR);
+
     // Forecast
     const forecast = hrs.length >= 2 ? calculateForecast(hrs, 1) : [];
     const forecastLabel = 'Forecast';
 
+    const chartLabels = forecast.length > 0 ? [...labels, forecastLabel] : labels;
+    const avgChartData = forecast.length > 0 ? [...avgData, avgHR] : avgData;
+
     racingHRChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: forecast.length > 0 ? [...labels, forecastLabel] : labels,
+            labels: chartLabels,
             datasets: [{
                 label: 'Actual HR',
                 data: [...hrs, null],
@@ -344,6 +377,14 @@ function createRacingHRChart(races) {
                 tension: 0.4,
                 pointRadius: 6,
                 pointBackgroundColor: 'rgba(239, 68, 68, 1)'
+            }, {
+                label: 'Average',
+                data: avgChartData,
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false
             }, ...(forecast.length > 0 ? [{
                 label: 'Forecast',
                 data: [...Array(hrs.length).fill(null), forecast[0]],
