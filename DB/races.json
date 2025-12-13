@@ -1,5 +1,14 @@
 [
     {
+        "raceName": "LG 2025",
+        "date": "2025-05-10",
+        "distance": 10,
+        "time": 3455,
+        "hr": 150,
+        "pace": 345.5,
+        "notes": "rr"
+    },
+    {
         "raceName": "Double bridge 2024",
         "date": "2024-08-18",
         "distance": 21.1,
@@ -27,40 +36,22 @@
         "notes": "First Full Marathon - Great experience!"
     },
     {
-        "raceName": "Chiang Mai Half Marathon",
-        "date": "2024-11-15",
-        "distance": 21.1,
-        "time": 6300,
-        "hr": 162,
-        "pace": 298.6,
-        "notes": "Beautiful scenery"
-    },
-    {
-        "raceName": "Phuket Half Marathon",
-        "date": "2024-10-20",
-        "distance": 21.1,
-        "time": 6480,
-        "hr": 159,
-        "pace": 307.1,
-        "notes": "Hot and humid"
-    },
-    {
-        "raceName": "Pataya 2024",
+        "raceName": "Pataya10K 2024",
         "date": "2024-07-20",
         "distance": 10,
-        "time": 2820,
-        "hr": 170,
-        "pace": 282,
-        "notes": "Personal best!"
+        "time": 2878,
+        "hr": 179,
+        "pace": 287.8,
+        "notes": "PB first sub 50"
     },
     {
         "raceName": "LG 2024",
         "date": "2024-06-16",
         "distance": 10,
         "time": 3120,
-        "hr": 178,
+        "hr": 165,
         "pace": 312,
-        "notes": "SUP 1"
+        "notes": "first SUP 1"
     },
     {
         "raceName": "ATM 2023",

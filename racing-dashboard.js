@@ -380,7 +380,8 @@ function createRacingHRChart(races) {
 // ============================================
 
 function renderRaceList(distance) {
-    const races = filterRacesByDistance(distance);
+    // Get races and sort by date descending (latest first) for the list
+    const races = filterRacesByDistance(distance).reverse();
     const container = document.getElementById('race-list');
     const countElement = document.getElementById('race-count');
 
