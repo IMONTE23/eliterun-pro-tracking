@@ -1,5 +1,25 @@
 [
     {
+        "raceName": "double bridge",
+        "date": "2025-08-17",
+        "distance": 21.19,
+        "time": 5718,
+        "hr": 173,
+        "cadence": 170,
+        "pace": 269.84426616328454,
+        "notes": "PB สะพานนน ไม่ได้กินเจล"
+    },
+    {
+        "raceName": "CMU 2024",
+        "date": "2024-12-01",
+        "distance": 21.25,
+        "time": 5772,
+        "hr": 169,
+        "cadence": 174,
+        "pace": 271.6235294117647,
+        "notes": "อากาศดีมาก PB"
+    },
+    {
         "raceName": "Korat 2024",
         "date": "2024-11-10",
         "distance": 21.1,
@@ -13,10 +33,10 @@
         "raceName": "PEA 2025",
         "date": "2025-09-28",
         "distance": 10,
-        "time": 2510,
+        "time": 2490,
         "hr": 176,
         "cadence": 172,
-        "pace": 251,
+        "pace": 249,
         "notes": "PB!!!"
     },
     {
