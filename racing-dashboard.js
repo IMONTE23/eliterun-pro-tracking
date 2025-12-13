@@ -599,7 +599,7 @@ function resetRaceForm() {
         }
     }
 
-    ['race-name', 'race-distance', 'race-time-h', 'race-time-m', 'race-time-s', 'race-hr', 'race-cadence', 'race-notes'].forEach(id => {
+    ['race-name', 'race-type', 'race-distance', 'race-time-h', 'race-time-m', 'race-time-s', 'race-hr', 'race-cadence', 'race-notes'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.value = '';
     });
@@ -612,6 +612,7 @@ function resetRaceForm() {
 async function saveRace() {
     const raceName = document.getElementById('race-name').value;
     const date = document.getElementById('race-date').value;
+    const raceType = document.getElementById('race-type').value;
     const distance = parseFloat(document.getElementById('race-distance').value);
     const hours = parseInt(document.getElementById('race-time-h').value) || 0;
     const minutes = parseInt(document.getElementById('race-time-m').value) || 0;
@@ -620,8 +621,8 @@ async function saveRace() {
     const cadence = parseInt(document.getElementById('race-cadence').value) || null;
     const notes = document.getElementById('race-notes').value;
 
-    if (!raceName || !date || !distance || distance <= 0) {
-        alert('Please fill in race name, date, and distance');
+    if (!raceName || !date || !raceType || !distance || distance <= 0) {
+        alert('Please fill in race name, date, race type, and distance');
         return;
     }
 
@@ -632,7 +633,7 @@ async function saveRace() {
     }
 
     const pace = time / distance; // pace in seconds per km
-    const raceData = { raceName, date, distance, time, hr, cadence, pace, notes };
+    const raceData = { raceName, date, distance, raceType, time, hr, cadence, pace, notes };
 
     try {
         let response;
@@ -678,6 +679,7 @@ window.editRaceEntry = function (index) {
     } else {
         dateInput.value = race.date;
     }
+    document.getElementById('race-type').value = race.raceType || '';
     document.getElementById('race-distance').value = race.distance;
 
     const h = Math.floor(race.time / 3600);
